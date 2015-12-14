@@ -14,18 +14,19 @@ def openExcel():
     ws1 = wb.active
     ws1.title = "Families"
 
+    #Get all the saved families
     db = Database()
     families = db.getAllFamilies()
     allFamilies = []
     for tuple in families:
-            family = Family(tuple[0], tuple[1], tuple[2], tuple[3])
+            family = Family(tuple[0], tuple[1], tuple[2], tuple[3], tuple[4])
             allFamilies.append(family)
 
     #Pulling the last names from the retrieved family list
-    firstNameList = []
+    lastNameList = []
     for stuff in allFamilies:
-        stuff2 = str(stuff).split()[1]
-        firstNameList.append(stuff2)
+        stuff2 = str(stuff).split()[2]
+        lastNameList.append(stuff2)
 
     #a list made to hold the months of the year
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
@@ -42,8 +43,8 @@ def openExcel():
     #Setting column A equal to the first name of each family
     for col in range(1, 2):
         test=0
-        for row in range(2, 2 + len(firstNameList)):
-            test2 = firstNameList[test]
+        for row in range(2, 2 + len(lastNameList)):
+            test2 = lastNameList[test]
             ws1.cell(column=col, row=row, value=test2)
             test = test + 1
 

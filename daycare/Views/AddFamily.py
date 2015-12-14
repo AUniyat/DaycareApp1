@@ -66,6 +66,12 @@ class addFamilyView(Frame):
         if len(firstName) == 0 or len(lastName) == 0 or len(phoneNumber) == 0 or len(email) == 0:
             self.warning()
             return
+        if not firstName.isalnum() or not lastName.isalnum() or not phoneNumber.isalnum():
+            messagebox.showwarning("Error", "Please use only letters or numbers for input")
+            return
+        else:
+            messagebox.showinfo("Message", "Family Added")
+            self.clearTextBoxes()
         #insert into databse
         self.db.insertFamily(firstName, lastName, phoneNumber, email)
 
@@ -73,3 +79,9 @@ class addFamilyView(Frame):
     def warning(self):
         messagebox.showwarning("Error", "Please fill out the whole form")
         return
+
+    def clearTextBoxes(self):
+        self.txtAddFirstName.delete(0, END)
+        self.txtAddLastName.delete(0, END)
+        self.txtAddPhone.delete(0, END)
+        self.txtAddEmail.delete(0, END)
